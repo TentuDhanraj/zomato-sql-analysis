@@ -158,7 +158,7 @@ WITH item_counts AS (
 		COUNT(o.order_id) AS order_count,
 		RANK() OVER(PARTITION BY r.city ORDER BY COUNT(o.order_id) DESC) AS rank
 	FROM restaurants r
-	JOIN orders o ON r.restaurant_id = o.order_id
+	JOIN orders o ON r.restaurant_id = o.restaurant_id
 	GROUP BY r.city,o.order_item
 )
 SELECT 
@@ -193,8 +193,6 @@ WHERE rank <= 3;
 
 -- Q16: Customer Retention Analysis
 --  Find customers who placed orders in both 2023 and 2024 (retained customers).
-SELECT * FROM orders;
-SELECT * FROM customers;
 
 SELECT 
     c.customer_id,
